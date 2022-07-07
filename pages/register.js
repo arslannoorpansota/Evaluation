@@ -54,7 +54,7 @@ export default function Register() {
         }
     }
     return (
-        <div className="h-screen flex flex-col-reverse md:flex-row">
+        <div className="h-screen overflow-hidden flex flex-col-reverse md:flex-row">
             <div className="h-1/2 md:w-1/2">
 
                 <form id="signup" onSubmit={form.handleSubmit(addUser)} className=" py-48 p-12">
