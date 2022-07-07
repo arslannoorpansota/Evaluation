@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { useRouter } from 'next/router';
+import Image from 'next/image'
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyBeVOxr4NAgWDLYiF2FVY2xvQb2wHL-4pk",
@@ -11,8 +13,8 @@ const firebaseConfig = {
     messagingSenderId: "147488666674",
     appId: "1:147488666674:web:471b09cbe0334243aa382b",
     measurementId: "G-TVEX6S9ZSL"
-  };
-  const getAppInstance = () => {
+};
+const getAppInstance = () => {
 
 
     if (firebase.apps.length) {
@@ -49,8 +51,8 @@ export default function Register() {
                 password: getValues("email"),
                 email: getValues("email"),
             });
-        localStorage.setItem("email", getValues("email"));
-        router.push('/');
+            localStorage.setItem("email", getValues("email"));
+            router.push('/');
         }
     }
     return (
@@ -91,7 +93,12 @@ export default function Register() {
 
 
             <div>
-                <img src="/unsplash_PhYq704ffdA.jpg"></img>
+                <Image
+                    src="/unsplash_PhYq704ffdA.jpg"
+                    alt="Building picture"
+                    width={1000}
+                    height={1500}
+                />
             </div>
 
         </div>
