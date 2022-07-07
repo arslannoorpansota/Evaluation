@@ -1,6 +1,20 @@
+import { redirect } from 'next/dist/server/api-utils';
 import Head from 'next/head'
+import { useRouter } from 'next/router';
+
 
 export default function Home() {
+  const email = localStorage.getItem("email");
+  const router = useRouter();
+
+  if (email==undefined) {
+    router.push('/register');
+  }
+  function logout(){
+    localStorage.removeItem("email");
+    router.push('/register');
+
+  }
   return (
     <div className='h-screen flex items-center justify-center'>
       <div className='flex items-center justify-center'>
@@ -19,12 +33,12 @@ export default function Home() {
             </div>
             <div className='flex-col text-center items-center justify-center pt-8'>
               <div className='text-xl font-medium'>Hello,</div>
-              <div className='text-xl font-medium '>email</div>
+              <div className='text-xl font-medium '>{email}</div>
 
             </div>
             <div className="flex justify-center pt-48 md:pt-12">
               <div className="pt-2">
-                <button className=" rounded-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" type="submit">Logout</button>
+                <button className=" rounded-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" onClick={logout} type="submit">Logout</button>
               </div>
             </div>
           </div>
