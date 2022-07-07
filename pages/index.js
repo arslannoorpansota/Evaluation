@@ -1,16 +1,24 @@
-import { redirect } from 'next/dist/server/api-utils';
-import Head from 'next/head'
 import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
 
 
 export default function Home() {
-  const email = localStorage.getItem("email");
   const router = useRouter();
+  const [email, setEmail] = useState('');
+  useEffect(() => {
 
-  if (email==undefined) {
-    router.push('/register');
-  }
-  function logout(){
+    if (typeof window !== "undefined") {
+      const email = localStorage.getItem("email");
+      if (email == undefined) {
+        router.push('/register');
+      }
+      else {
+        setEmail(email)
+      }
+    }
+  })
+
+  function logout() {
     localStorage.removeItem("email");
     router.push('/register');
 

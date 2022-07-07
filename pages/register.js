@@ -1,12 +1,30 @@
 import { useForm } from "react-hook-form";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from 'next/router';
 
+const firebaseConfig = {
+    apiKey: "AIzaSyBeVOxr4NAgWDLYiF2FVY2xvQb2wHL-4pk",
+    authDomain: "evaluation-b5746.firebaseapp.com",
+    projectId: "evaluation-b5746",
+    storageBucket: "evaluation-b5746.appspot.com",
+    messagingSenderId: "147488666674",
+    appId: "1:147488666674:web:471b09cbe0334243aa382b",
+    measurementId: "G-TVEX6S9ZSL"
+  };
+  const getAppInstance = () => {
+
+
+    if (firebase.apps.length) {
+        return firebase.apps[0];
+    } else {
+        return firebase.initializeApp(firebaseConfig);
+    }
+}
+export const adminClient = getAppInstance();
 
 export default function Register() {
-    // const db = firebase.firestore();
+    const db = firebase.firestore();
     const router = useRouter();
 
     if (typeof window !== "undefined") {
@@ -22,19 +40,18 @@ export default function Register() {
 
 
     async function addUser(data) {
-        console.log(getValues("email"));
-        // const emailDoc = await db.collection("users").where("email", "==", email).get()
-        // if (!emailDoc.empty) {
-        //     console.log("This email is already taken!");
-        // }
-        // else {
-        //     db.collection('users').add({
-        //         password: this.password,
-        //         email: this.email,
-        //     });
+        const emailDoc = await db.collection("users").where("email", "==", getValues("email")).get()
+        if (!emailDoc.empty) {
+            alert("This email is already taken!");
+        }
+        else {
+            db.collection('users').add({
+                password: getValues("email"),
+                email: getValues("email"),
+            });
         localStorage.setItem("email", getValues("email"));
         router.push('/');
-        // }
+        }
     }
     return (
         <div className="h-screen flex flex-col-reverse md:flex-row">
